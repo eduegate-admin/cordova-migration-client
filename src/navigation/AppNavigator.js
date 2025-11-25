@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { BlurView } from 'expo-blur';
 import { useTheme } from '../theme/colors';
 import { ContextService } from '../services/ContextService';
 import * as screens from '../screens';
@@ -13,7 +14,7 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
-    const { colors } = useTheme();
+    const { colors, isDark } = useTheme();
 
     return (
         <View style={{ flex: 1 }}>
@@ -22,7 +23,20 @@ const TabNavigator = () => {
                     headerShown: false,
                     tabBarActiveTintColor: colors.primary,
                     tabBarInactiveTintColor: colors.textSecondary,
-                    tabBarStyle: { backgroundColor: 'rgba(255,255,255,0.8)' },
+                    tabBarStyle: {
+                        position: 'absolute',
+                        backgroundColor: 'transparent',
+                        borderTopWidth: 0,
+                        elevation: 0,
+                        height: 85,
+                    },
+                    tabBarBackground: () => (
+                        <BlurView
+                            tint={isDark ? 'dark' : 'light'}
+                            intensity={80}
+                            style={StyleSheet.absoluteFill}
+                        />
+                    ),
                 }}
             >
                 <Tab.Screen

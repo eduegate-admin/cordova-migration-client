@@ -44,6 +44,8 @@ const HomeScreen = ({ navigation }) => {
                         "CallContext": JSON.stringify(context)
                     }
                 });
+                // Student card styles
+
 
                 const responseText = await response.text();
                 console.log("Raw User Data Response:", responseText);
@@ -73,6 +75,14 @@ const HomeScreen = ({ navigation }) => {
     return (
         <ScreenWrapper>
             <ScrollView contentContainerStyle={styles.container}>
+                {/* Student Details Card */}
+                <View style={styles.studentCard}>
+                    <View style={styles.avatarPlaceholder} />
+                    <View style={styles.studentInfoContainer}>
+                        <Text style={[styles.studentName, { color: colors.text }]}>{user?.FirstName || ''} {user?.LastName || ''}</Text>
+                        <Text style={[styles.studentClass, { color: colors.textSecondary }]}>{user?.ClassName || ''}</Text>
+                    </View>
+                </View>
                 <View style={styles.header}>
                     <View>
                         <Text style={[styles.greeting, { color: colors.text }]}>Hello, {user?.FirstName || 'Student'}</Text>
@@ -115,6 +125,31 @@ const HomeScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+    studentCard: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: spacing.m,
+        borderRadius: spacing.m,
+        marginBottom: spacing.l,
+    },
+    avatarPlaceholder: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        backgroundColor: '#ccc', // fallback color; actual color applied inline if needed
+        marginRight: spacing.m,
+    },
+    studentInfoContainer: {
+        flex: 1,
+    },
+    studentName: {
+        fontSize: 18,
+        fontWeight: '600',
+    },
+    studentClass: {
+        fontSize: 14,
+    },
+
     center: {
         justifyContent: 'center',
         alignItems: 'center',
