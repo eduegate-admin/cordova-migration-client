@@ -15,3 +15,5 @@ export { default as DriverDetailsScreen } from './DriverDetailsScreen';
 export { default as BusRouteScreen } from './BusRouteScreen';
 export { default as ExamScreen } from './ExamScreen';
 export { default as ViewProfileScreen } from './ViewProfileScreen';
+export { default as FeaturedArticlesScreen } from './FeaturedArticlesScreen';
+export { default as LiquidGlassTestScreen } from './LiquidGlassTestScreen';

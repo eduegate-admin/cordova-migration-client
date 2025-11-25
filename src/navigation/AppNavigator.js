@@ -1,68 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { BlurView } from 'expo-blur';
 import { useTheme } from '../theme/colors';
 import { ContextService } from '../services/ContextService';
 import * as screens from '../screens';
-import { Home, User, Zap } from 'lucide-react-native';
+import NativeTabsNavigator from './NativeTabsNavigator';
 import LiquidGlassButton from '../components/LiquidGlassButton';
 
 const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
-    const { colors, isDark } = useTheme();
-
     return (
         <View style={{ flex: 1 }}>
-            <Tab.Navigator
-                screenOptions={{
-                    headerShown: false,
-                    tabBarActiveTintColor: colors.primary,
-                    tabBarInactiveTintColor: colors.textSecondary,
-                    tabBarStyle: {
-                        position: 'absolute',
-                        backgroundColor: 'transparent',
-                        borderTopWidth: 0,
-                        elevation: 0,
-                        height: 85,
-                    },
-                    tabBarBackground: () => (
-                        <BlurView
-                            tint={isDark ? 'dark' : 'light'}
-                            intensity={80}
-                            style={StyleSheet.absoluteFill}
-                        />
-                    ),
-                }}
-            >
-                <Tab.Screen
-                    name="Home"
-                    component={screens.HomeScreen}
-                    options={{
-                        tabBarIcon: ({ color, size }) => <Home color={color} size={size} />,
-                    }}
-                />
-                <Tab.Screen
-                    name="Demo"
-                    component={screens.DemoScreen}
-                    options={{
-                        tabBarIcon: ({ color, size }) => <Zap color={color} size={size} />,
-                        title: 'Features'
-                    }}
-                />
-                <Tab.Screen
-                    name="Profile"
-                    component={screens.ProfileScreen}
-                    options={{
-                        tabBarIcon: ({ color, size }) => <User color={color} size={size} />,
-                    }}
-                />
-            </Tab.Navigator>
-
+            <NativeTabsNavigator />
             <LiquidGlassButton />
         </View>
     );
@@ -123,6 +74,7 @@ const AppNavigator = () => {
             >
                 <Stack.Screen name="Auth" component={AuthNavigator} />
                 <Stack.Screen name="Main" component={TabNavigator} />
+                <Stack.Screen name="LiquidGlassTest" component={screens.LiquidGlassTestScreen} />
                 <Stack.Screen name="Attendance" component={screens.AttendanceScreen} />
                 <Stack.Screen name="ReportCard" component={screens.ReportCardScreen} />
                 <Stack.Screen name="Assignments" component={screens.AssignmentsScreen} />
